@@ -33,6 +33,38 @@
   --borderSecondary: rgba(0, 0, 0, 0.2);
   --dividerPrimary: rgba(255, 255, 255, 0.4);
   --dividerSecondary: rgba(255, 255, 255, 0.9);
+
+  /* Look & feel. Defaults reproduce the stock theme; override any of these
+   * from the branding folder's custom.css to restyle File Browser. */
+  --font-ui: "Roboto", sans-serif;
+  --font-mono: monospace;
+
+  --accent: var(--blue);
+  --accent-hover: var(--dark-blue);
+  --accent-text: #fff;
+
+  --radius-control: 0.1em;
+  --radius-tile: 0.2em;
+  --radius-card: 2px;
+  --radius-search: 0.3em;
+  --radius-round: 50%;
+
+  --shadow-card:
+    0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12),
+    0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  --shadow-tile: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.12);
+  --shadow-tile-hover:
+    0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --shadow-bar: 0 0 5px var(--borderPrimary);
+  --shadow-button: 0 0 5px var(--divider);
+  --shadow-menu: 0 2px 4px var(--borderPrimary);
+
+  --transition-fast: 0.1s ease;
+  --transition-base: 0.2s ease;
+
+  --header-height: 4em;
+  --header-padding: 0.5em 0.5em 0.5em 1em;
+  --listing-item-padding: 1em;
 }
 
 :root.dark {

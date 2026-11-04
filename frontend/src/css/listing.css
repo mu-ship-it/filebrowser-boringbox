@@ -28,8 +28,8 @@ html[dir="rtl"] #listing {
   flex-wrap: nowrap;
   color: var(--textPrimary);
   transition:
-    0.1s ease background,
-    0.1s ease opacity;
+    var(--transition-fast) background,
+    var(--transition-fast) opacity;
   align-items: center;
   cursor: pointer;
   user-select: none;
@@ -93,16 +93,12 @@ html[dir="rtl"] #listing {
   width: calc(33% - 1em);
   margin: 0.5em;
   padding: 0.5em;
-  border-radius: 0.2em;
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.06),
-    0 1px 2px rgba(0, 0, 0, 0.12);
+  border-radius: var(--radius-tile);
+  box-shadow: var(--shadow-tile);
 }
 
 #listing.mosaic .item:hover {
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.12),
-    0 1px 2px rgba(0, 0, 0, 0.24) !important;
+  box-shadow: var(--shadow-tile-hover) !important;
 }
 
 #listing.mosaic .header {
@@ -163,7 +159,7 @@ html[dir="rtl"] #listing {
   width: 100%;
   margin: 0;
   border: 1px solid var(--borderPrimary);
-  padding: 1em;
+  padding: var(--listing-item-padding);
   border-top: 0;
 }
 
@@ -172,7 +168,7 @@ html[dir="rtl"] #listing {
 }
 
 #listing .item[aria-selected="true"] {
-  background: var(--blue) !important;
+  background: var(--accent) !important;
   color: var(--iconSecondary) !important;
 }
 
@@ -248,7 +244,7 @@ html[dir="rtl"] #listing {
 
 #listing.list .header i {
   opacity: 0;
-  transition: 0.1s ease all;
+  transition: var(--transition-fast) all;
 }
 
 #listing.list .header p:hover i,
@@ -266,11 +262,11 @@ html[dir="rtl"] #listing {
   left: 0;
   z-index: 99999;
   width: 100%;
-  background-color: var(--blue);
+  background-color: var(--accent);
   height: 4em;
   padding: 0.5em 0.5em 0.5em 1em;
   justify-content: space-between;
-  transition: 0.2s ease bottom;
+  transition: var(--transition-base) bottom;
 }
 
 #listing #multiple-selection.active {

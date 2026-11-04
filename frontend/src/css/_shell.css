@@ -2,12 +2,12 @@
   position: fixed;
   bottom: 0;
   left: 0;
-  max-height: calc(100% - 4em);
+  max-height: calc(100% - var(--header-height));
   background: var(--surfacePrimary);
   color: var(--textPrimary);
   z-index: 9999;
   background: var(--dividerSecondary);
-  transition: 0.2s ease background;
+  transition: var(--transition-base) background;
   cursor: ns-resize;
   touch-action: none;
   user-select: none;
@@ -26,12 +26,12 @@
 
 .shell__content {
   height: 100%;
-  font-family: monospace;
+  font-family: var(--font-mono);
   overflow: auto;
   font-size: 1rem;
   cursor: text;
-  box-shadow: 0 0 5px var(--borderPrimary);
-  transition: 0.2s ease transform;
+  box-shadow: var(--shadow-bar);
+  transition: var(--transition-base) transform;
 }
 
 .shell__overlay {
@@ -74,7 +74,7 @@ body.rtl .shell-content {
 }
 
 .shell__prompt i {
-  color: var(--blue);
+  color: var(--accent);
 }
 
 .shell__text {

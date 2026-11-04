@@ -4,7 +4,7 @@
   min-width: 180px;
   max-width: 220px;
   border: 1px solid var(--borderSecondary);
-  box-shadow: 0 2px 4px var(--borderPrimary);
+  box-shadow: var(--shadow-menu);
   z-index: 999;
 }
 

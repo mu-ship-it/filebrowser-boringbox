@@ -1,6 +1,6 @@
 body {
-  font-family: "Roboto", sans-serif;
-  padding-top: 4em;
+  font-family: var(--font-ui);
+  padding-top: var(--header-height);
   background: var(--background);
   color: var(--textSecondary);
 }
@@ -44,7 +44,7 @@ i.spin {
 }
 
 #app {
-  transition: 0.2s ease padding;
+  transition: var(--transition-base) padding;
 }
 
 #app.multiple {
@@ -54,9 +54,9 @@ i.spin {
 nav {
   width: 16em;
   position: fixed;
-  top: 4em;
+  top: var(--header-height);
   left: 0;
-  height: calc(100vh - 4em);
+  height: calc(100vh - var(--header-height));
   overflow-y: auto;
 }
 
@@ -100,7 +100,7 @@ main {
   border-bottom: 1px solid var(--divider);
   position: sticky;
   z-index: 1000;
-  top: 4em;
+  top: var(--header-height);
 }
 
 .breadcrumbs span,
@@ -147,7 +147,7 @@ html[dir="rtl"] .breadcrumbs a {
   height: 100%;
   background-color: #40c4ff;
   width: 0;
-  transition: 0.2s ease width;
+  transition: var(--transition-base) width;
 }
 
 .break-word {

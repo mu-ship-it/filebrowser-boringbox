@@ -2,17 +2,17 @@
   outline: 0;
   border: 0;
   padding: 0.5em 1em;
-  border-radius: 0.1em;
+  border-radius: var(--radius-control);
   cursor: pointer;
-  background: var(--blue);
-  color: white;
+  background: var(--accent);
+  color: var(--accent-text);
   border: 1px solid var(--divider);
-  box-shadow: 0 0 5px var(--divider);
-  transition: 0.1s ease all;
+  box-shadow: var(--shadow-button);
+  transition: var(--transition-fast) all;
 }
 
 .button:hover {
-  background-color: var(--dark-blue);
+  background-color: var(--accent-hover);
 }
 
 .button--block {
@@ -26,11 +26,11 @@
 }
 
 .button--blue {
-  background: var(--blue);
+  background: var(--accent);
 }
 
 .button--flat {
-  color: var(--dark-blue);
+  color: var(--accent-hover);
   background: transparent;
   box-shadow: 0 0 0;
   border: 0;

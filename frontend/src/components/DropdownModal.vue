@@ -108,9 +108,9 @@ export default {
   background: var(--surfacePrimary);
   color: var(--textSecondary);
   border: 1px solid var(--borderPrimary);
-  border-radius: 0.1em;
+  border-radius: var(--radius-control);
   padding: 0.5em 1em;
-  transition: 0.2s ease all;
+  transition: var(--transition-base) all;
   margin: 0;
   display: flex;
   justify-content: space-between;
@@ -128,7 +128,7 @@ export default {
   color: var(--textSecondary);
   display: none;
   border: 1px solid var(--borderPrimary);
-  border-radius: 0.1em;
+  border-radius: var(--radius-control);
 }
 
 .dropdown-modal-list > div {

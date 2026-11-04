@@ -44,7 +44,7 @@ li code,
 p code {
   background: var(--divider);
   padding: 0.1em;
-  border-radius: 0.2em;
+  border-radius: var(--radius-tile);
 }
 
 .small {
@@ -93,8 +93,8 @@ html[dir="rtl"] .dashboard #nav .wrapper {
 }
 
 .dashboard #nav ul li.active {
-  border-color: var(--blue);
-  color: var(--blue);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .dashboard #nav ul li.active::before {
@@ -104,7 +104,7 @@ html[dir="rtl"] .dashboard #nav .wrapper {
   top: 0;
   left: 0;
   content: "";
-  background: var(--blue);
+  background: var(--accent);
   opacity: 0.08;
 }
 
@@ -161,11 +161,8 @@ table tr > *:last-child {
   margin: 0 0 1rem 0;
   background: var(--surfacePrimary);
   color: var(--textSecondary);
-  border-radius: 2px;
-  box-shadow:
-    0 2px 2px 0 rgba(0, 0, 0, 0.14),
-    0 1px 5px 0 rgba(0, 0, 0, 0.12),
-    0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
   overflow: auto;
 }
 
@@ -277,7 +274,7 @@ body.rtl .card .card-action {
 }
 
 .card#share ul li a {
-  color: var(--blue);
+  color: var(--accent);
   cursor: pointer;
   margin-right: auto;
 }
@@ -305,7 +302,7 @@ body.rtl .card .card-action {
   padding: 0.5em 0.2em;
   border-radius: 0.4em;
   top: -2em;
-  transition: 0.1s ease opacity;
+  transition: var(--transition-fast) opacity;
   opacity: 0;
 }
 
@@ -354,14 +351,14 @@ body.rtl .card .card-action {
 .file-list li {
   width: 100%;
   user-select: none;
-  border-radius: 0.2em;
+  border-radius: var(--radius-tile);
   padding: 0.3em;
 }
 
 .file-list li[aria-selected="true"] {
-  background: var(--blue) !important;
+  background: var(--accent) !important;
   color: var(--iconSecondary) !important;
-  transition: 0.1s ease all;
+  transition: var(--transition-fast) all;
 }
 
 .file-list li:hover {
@@ -435,14 +432,14 @@ body.rtl .card .card-action {
 }
 
 .collapsible > label i {
-  transition: 0.2s ease transform;
+  transition: var(--transition-base) transform;
   user-select: none;
 }
 
 .collapsible .collapse {
   max-height: 0;
   overflow: hidden;
-  transition: 0.2s ease all;
+  transition: var(--transition-base) all;
 }
 
 .collapsible > input:checked ~ .collapse {
@@ -477,7 +474,7 @@ body.rtl .card .card-action {
 .card .card-action.full .action {
   flex: 1;
   padding: 2em;
-  border-radius: 0.2em;
+  border-radius: var(--radius-tile);
   border: 1px solid var(--borderPrimary);
   text-align: center;
 }

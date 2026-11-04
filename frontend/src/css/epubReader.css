@@ -35,7 +35,7 @@
    * button instead of opening the table of contents. Push it just below the
    * header, tracking the header's height so it stays clear if that changes.
    */
-  top: calc(4em + 10px);
+  top: calc(var(--header-height) + 10px);
 }
 
 .epub-reader .tocButton.tocButtonExpanded {
@@ -43,8 +43,8 @@
 }
 
 .epub-reader .tocAreaButton.active {
-  color: var(--blue);
-  border-color: var(--dark-blue);
+  color: var(--accent);
+  border-color: var(--accent-hover);
 }
 
 .epub-reader .tocArea {

@@ -49,7 +49,7 @@
     right: 1em;
     display: block;
     background: var(--surfaceSecondary);
-    box-shadow: 0 0 5px var(--borderPrimary);
+    box-shadow: var(--shadow-bar);
     transform: scale(0);
     transition: 0.1s ease-in-out transform;
     transform-origin: top right;
@@ -89,15 +89,13 @@
     display: flex;
     align-items: center;
     background: var(--surfaceSecondary);
-    box-shadow:
-      rgba(0, 0, 0, 0.06) 0px 1px 3px,
-      rgba(0, 0, 0, 0.12) 0px 1px 2px;
+    box-shadow: var(--shadow-tile);
     width: 95%;
     max-width: 20em;
     z-index: 1;
   }
   #file-selection .action {
-    border-radius: 50%;
+    border-radius: var(--radius-round);
     width: auto;
   }
   #file-selection > span {
@@ -116,8 +114,8 @@
     height: 100vh;
     width: 16em;
     overflow-y: auto;
-    box-shadow: 0 0 5px var(--borderPrimary);
-    transition: 0.1s ease left;
+    box-shadow: var(--shadow-bar);
+    transition: var(--transition-fast) left;
     left: -17em;
   }
 

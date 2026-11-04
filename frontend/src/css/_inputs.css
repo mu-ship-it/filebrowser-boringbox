@@ -2,9 +2,9 @@
   background: var(--surfacePrimary);
   color: var(--textSecondary);
   border: 1px solid var(--borderPrimary);
-  border-radius: 0.1em;
+  border-radius: var(--radius-control);
   padding: 0.5em 1em;
-  transition: 0.2s ease all;
+  transition: var(--transition-base) all;
   margin: 0;
 }
 
@@ -21,7 +21,7 @@
 
 .input--textarea {
   line-height: 1.15;
-  font-family: monospace;
+  font-family: var(--font-mono);
   min-height: 10em;
   resize: vertical;
 }
