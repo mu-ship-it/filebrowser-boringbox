@@ -1,34 +1,50 @@
-> [!WARNING]
-> 
-> **File Browser is archived on 2026-09-01**. The last planned release has already shipped. There will be no further releases, bug fixes, or security fixes.   
+# filebrowser-boringbox
 
-<p align="center">
-  <img src="./branding/banner.png" width="550"/>
-</p>
+A maintained-by-one-household fork of [File Browser](https://github.com/filebrowser/filebrowser)
+(`v2.63.23`, the final upstream release — upstream was archived 2026-09-01) with one feature added:
+**the UI is themeable without forking it again.**
 
-File Browser provides a file managing interface within a specified directory and it can be used to upload, delete, preview and edit your files. It is a **create-your-own-cloud**-kind of software where you can just install it on your server, direct it to a path and access your files through a nice web interface.
+- Every look-and-feel literal (fonts, accent colour, corner radii, shadows, header height,
+  transitions) is now a CSS custom property on `:root`, defaulting to the exact upstream value.
+  Verified pixel-for-pixel against stock `v2.63.23` on 20 screens, light and dark
+  (`docs/PIXELDIFF.md`).
+- A drop-in theme is a single `custom.css` handed to `--branding.files`. No rebuild.
+- One extra branding flag: `--branding.disableCredits`.
+- Ships with the **Boring Box** theme (`theme/`): black, flat, square, system fonts.
+  That's the one we use at home; it's the reason this fork exists.
 
-**Background:** [Update On File Browser](https://hacdias.com/2026/03/11/filebrowser/), March 2026.
+Everything else is upstream, untouched. Design notes and the full variable table: `docs/THEMEABLE.md`.
 
-## Security
+## Use it
 
-Published advisories are listed under [security advisories](https://github.com/filebrowser/filebrowser/security/advisories), and reporting instructions are in [SECURITY.md](SECURITY.md). This project has known security issue classes that remain unaddressed and will not be fixed:
+```
+filebrowser config set --branding.files /path/to/theme --branding.theme dark --branding.disableCredits
+```
 
-- **Command execution, runner, and hooks** (opt-in, disabled by default, [#5199](https://github.com/filebrowser/filebrowser/issues/5199))
-- **Session and JWT handling** ([#5216](https://github.com/filebrowser/filebrowser/issues/5216))
+Write your own theme by overriding the variables listed in `docs/THEMEABLE.md` in a `custom.css`.
 
-If you keep running File Browser, treat it as unmaintained software:
+## Build
 
-- **Do not expose it directly to the internet.** Put it behind a reverse proxy that terminates TLS and performs its own authentication.
-- **Keep the command runner disabled.** It is off by default, so leave it off. See [#5199](https://github.com/filebrowser/filebrowser/issues/5199) and [`docs/command-execution.md`](docs/command-execution.md).
-- **Run it unprivileged, inside a container**, with only the directory you intend to serve mounted into it.
+```
+cd frontend && pnpm install && pnpm run build && cd ..
+go build -o filebrowser .
+```
 
-## Documentation
+## Who made this
 
-Documentation on how to install, configure, and build this project lives in [`docs`](docs) in this repository.
+The owner of this repo (Mu Yin) wanted File Browser to look like the rest of his home dashboard,
+found upstream archived, and asked Claude (Anthropic's AI) to do the fork properly instead of
+patching stylesheets. **The code, docs and tests in the two commits on top of upstream were written
+by Claude, directed and reviewed by Mu.** Issues and PRs are read by Mu and worked by Claude;
+expect replies to say so.
 
-[CONTRIBUTING.md](CONTRIBUTING.md) documents how to build and develop the project, which remains useful to anyone forking it.
+## Scope, honestly
+
+- No new features beyond theming. Not a community successor to File Browser.
+- Security fixes: we will pull in anything the community forks publish, on a best-effort basis.
+- One known upstream issue we intend to fix here because it bites us: unrevocable JWT sessions
+  (upstream #5216). Tracked on the `sessions` branch when it exists.
 
 ## License
 
-[Apache License 2.0](LICENSE) © File Browser Contributors
+Apache-2.0, same as upstream. Upstream's README is kept as `UPSTREAM-README.md`.

@@ -1,0 +1,1688 @@
+/* BORING BOX — DESIGN TOKENS
+ *
+ * The single source of truth for every value in docs/DESIGN_RULES.md.
+ * Loaded before every other stylesheet. No literal spacing, size, weight,
+ * colour, line or radius value may appear anywhere else (R-18).
+ *
+ * Rule references are to docs/DESIGN_RULES.md.
+ */
+
+:root {
+  /* ---- R-02 spacing scale: 0 4 8 12 16 24 32 48 64 96, and nothing else ---- */
+  --s-0:   0px;
+  --s-1:   4px;
+  --s-2:   8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-6:  24px;
+  --s-8:  32px;
+  --s-12: 48px;
+  --s-16: 64px;
+  --s-24: 96px;
+
+  /* ---- R-05 type scale: 14 x 1.25^n, whole px, snapped to the 4px grid ---- */
+  --t-label:   11px;   /* hard legibility floor */
+  --t-body:    14px;
+  --t-subhead: 18px;
+  --t-section: 22px;
+  --t-title:   28px;
+  --t-display: 36px;   /* at most once per page */
+
+  /* ---- R-06 baseline: every leading a whole multiple of 4px ---- */
+  --lh-label:   16px;
+  --lh-body:    20px;
+  --lh-prose:   24px;
+  --lh-subhead: 24px;
+  --lh-section: 28px;
+  --lh-title:   32px;
+  --lh-display: 40px;
+  /* R-08.4's CJK leading step is applied by redefining --lh-body and
+     --lh-label under html:lang(zh) / .cjk below, not by a parallel set. */
+
+  /* ---- R-07 two weights, two faces ----
+   * Latin run first so per-glyph fallback keeps Latin in the grotesk; CJK run
+   * after it. Source Han Sans ships Adobe Source Sans as its Latin, which is
+   * why a CJK family may never lead a stack. Order and names are Mu's ruling
+   * of 2026-10-23. */
+  --w-regular: 400;
+  --w-bold:    700;
+  --font-sans: "Helvetica Neue", Helvetica, Inter, -apple-system,
+               BlinkMacSystemFont, Arial,
+               "PingFang SC",
+               "Noto Sans CJK SC", "Noto Sans SC",
+               "Source Han Sans SC", "Source Han Sans CN",
+               "Microsoft YaHei", "Heiti SC",
+               sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, "Liberation Mono",
+               "PingFang SC",
+               "Noto Sans CJK SC", "Noto Sans SC",
+               "Source Han Sans SC", "Source Han Sans CN",
+               "Microsoft YaHei",
+               monospace;
+
+  /* ---- R-05 tracking ---- */
+  --tr-tight:  -0.02em;   /* display / title, Latin only (R-08.5) */
+  --tr-snug:   -0.01em;
+  --tr-none:    0;
+  --tr-label:   0.08em;   /* uppercase micro-labels, Latin only */
+  --tr-cjk:     0.02em;   /* R-08.2 cap for Han */
+
+  /* ---- R-11 ink scale. Seven steps, the only neutrals. ---- */
+  --bg:       #0a0a0a;
+  --bg-1:     #121212;
+  --bg-2:     #1a1a1a;
+  --line:     #262626;
+  --fg-dim:   #6e6e6e;
+  --fg-mute:  #a7a8aa;
+  --fg:       #f5f5f5;
+
+  /* ---- R-11 signal. Four values, each with exactly one meaning. ---- */
+  --signal: #e10600;   /* the one primary action; down; error; destructive */
+  --on-signal: #ffffff;  /* the only ink that clears 4.5:1 on --signal */
+  --ok:     #3e9e5f;   /* ok / 已收工 / healthy */
+  --warn:   #c9a227;   /* warn / 等你回复 / expiring */
+  --info:   #5b86b7;   /* running / 干活中 — live, not yet an outcome */
+  /* The single permitted rgba: the scrim behind a modal (R-12). */
+  --scrim:  rgba(10, 10, 10, 0.8);
+
+  /* ---- R-19 the mark. Base and cross; the cross is the base moved ONE
+   * 8-bit step toward mid-grey (#808080). A fixed 8-bit step cannot be
+   * written as color-mix(), which mixes by a FRACTION of the remaining
+   * distance to grey, so the pair is computed by the rule (R-20) and
+   * declared here. Any new base gets its partner the same way. ---- */
+  --mark-base:  var(--fg);
+  --mark-cross: #f4f4f4;   /* --fg #f5f5f5, one step toward #808080 */
+  /* The same pair on a LIGHT ground, for the one surface that follows
+     prefers-color-scheme (the login page, Mu 2026-10-24 "定稿"). Same rule,
+     other ink: --bg #0a0a0a, one step toward #808080. */
+  --mark-base-on-light:  var(--bg);
+  --mark-cross-on-light: #0b0b0b;
+  /* R-14 pressed: the ink steps one level toward the ground, never opacity. */
+  --mark-press-on-light: var(--line);   /* #262626 */
+  --mark-press-on-dark:  #e6e6e6;
+
+  /* ---- R-21 ribbing. Each state's fill, moved SIX 8-bit steps toward
+   * mid-grey. Six was chosen by Mu against 4 (too weak) and 10 (too
+   * visible); the same reason color-mix() is not used here is that one
+   * percentage spans 3 to 11 steps across these five fills, i.e. both
+   * rejected extremes at once. ---- */
+  --signal-rib:   #db0c06;   /* --signal   #e10600 +6 toward #808080 */
+  --ok-rib:       #449865;   /* --ok       #3e9e5f +6 */
+  --warn-rib:     #c39c2d;   /* --warn     #c9a227 +6 */
+  --info-rib:     #6180b1;   /* --info     #5b86b7 +6 */
+  --fg-mute-rib:  #a1a2a4;   /* --fg-mute  #a7a8aa +6 */
+  --fg-rib:       #efefef;   /* --fg       #f5f5f5 +6 */
+
+  --rib-band:    8px;     /* one stripe */
+  --rib-tile:   32px;     /* two stripe pairs — the distance travelled per period */
+  --rib-period: 1.6s;     /* 32px per 1.6s, linear, infinite, BACKWARD */
+
+  /* ---- R-22 breathing status lights ---- */
+  --breathe-period: 5s;      /* ~12 cycles/min */
+  --breathe-floor:  0.82;    /* 100% -> 82% */
+  --light-size:     10px;
+  --light-size-hi:   9px;    /* irradiation: the brightest light in a set is
+                                drawn ONE WHOLE pixel smaller, never a half */
+
+  /* ---- R-10 two line weights, and nothing else ---- */
+  --rule:        1px;
+  --rule-heavy:  2px;
+
+  /* ---- R-12 flat ---- */
+  --radius: 0;
+
+  /* ---- R-04 containers: three, and only three ---- */
+  --w-page:   1280px;   /* grid pages */
+  --w-column:  720px;   /* single-column pages */
+  --w-form:    400px;   /* login / enroll / add-device */
+  --gutter:    var(--s-4);
+  --gutter-lg: var(--s-6);
+
+  /* ---- R-14 states ---- */
+  --control-h:        32px;   /* >=768: a control is 8 rows of the 4px grid */
+  --control-h-touch:  44px;   /* <768: R-16 touch minimum */
+  --focus-ring:       var(--rule-heavy) solid var(--fg);
+  --focus-offset:     2px;
+  --disabled-opacity: 0.4;
+  --motion:           120ms linear;
+}
+
+/* R-16: gutters and page margin open up at the two upper breakpoints. */
+@media (min-width: 1280px) {
+  :root { --gutter: var(--s-6); }
+}
+
+/* ---------------------------------------------------------------------------
+ * R-08 — the CJK hooks.
+ *
+ * Boring Box is a true bilingual design (Mu, 2026-10-23 13:02): both scripts
+ * are first-class. The hooks work at the TOKEN layer rather than by overriding
+ * finished declarations, which is both smaller and more robust — every rule on
+ * the box already reads its size, leading and tracking from these variables,
+ * so redefining them for a Han-bearing subtree moves everything at once and
+ * never loses a specificity tie to a page stylesheet.
+ *
+ *   :lang(zh)  — the whole page is Chinese.
+ *   .cjk       — a mixed string inside an otherwise English page, where
+ *                :lang() cannot help: the element's language attribute is
+ *                singular and its content is not.
+ * ------------------------------------------------------------------------ */
+
+html:lang(zh),
+.cjk {
+  /* R-08.1 — Han never renders below 12px; at 11px the strokes merge. */
+  --t-label: 12px;
+  /* R-08.4 — the CJK leading step: one 4px step more at the same size. This
+     is why R-06's baseline unit is 4px — the one unit on which a Latin rhythm
+     and a Han rhythm both land, exactly one step apart. */
+  --lh-label: 20px;
+  --lh-body: 24px;
+  /* R-08.2 — Han already occupies a full em box; the Latin label tracking
+     makes a two-character string look broken apart. */
+  --tr-label: 0.02em;
+  /* R-08.5 — never a negative tracking on a string that may contain Han. */
+  --tr-tight: 0;
+  --tr-snug: 0;
+}
+
+/* R-08.3 — text-transform: uppercase is a no-op on Han and harmless on mixed
+ * strings, so it needs no hook at all. */
+
+/* ---------------------------------------------------------------------------
+ * R-05 — the nine type roles. A component picks a role, never a size.
+ * ------------------------------------------------------------------------ */
+.t-display { font: var(--w-bold) var(--t-display)/var(--lh-display) var(--font-sans); letter-spacing: var(--tr-tight); text-transform: uppercase; }
+.t-title   { font: var(--w-bold) var(--t-title)/var(--lh-title) var(--font-sans);     letter-spacing: var(--tr-tight); text-transform: uppercase; }
+.t-section { font: var(--w-bold) var(--t-section)/var(--lh-section) var(--font-sans); letter-spacing: var(--tr-snug);  text-transform: uppercase; }
+.t-subhead { font: var(--w-bold) var(--t-subhead)/var(--lh-subhead) var(--font-sans); letter-spacing: var(--tr-none);  text-transform: uppercase; }
+.t-body    { font: var(--w-regular) var(--t-body)/var(--lh-body) var(--font-sans); }
+.t-prose   { font: var(--w-regular) var(--t-body)/var(--lh-prose) var(--font-sans); }
+.t-data    { font: var(--w-regular) var(--t-body)/var(--lh-body) var(--font-mono); font-variant-numeric: tabular-nums; }
+.t-label   { font: var(--w-bold) var(--t-label)/var(--lh-label) var(--font-sans);  letter-spacing: var(--tr-label); text-transform: uppercase; }
+.t-meta    { font: var(--w-regular) var(--t-label)/var(--lh-label) var(--font-mono); letter-spacing: var(--tr-cjk); font-variant-numeric: tabular-nums; }
+
+/* ---------------------------------------------------------------------------
+ * R-16 — touch targets. Below 768 every interactive control is at least 44px
+ * high; above it, 32px. Set on min-height rather than padding so the control
+ * is the same height in both scripts (R-08's component obligation) — padding
+ * plus a taller Han line box is exactly what made 40 controls diverge between
+ * EN and ZH in the before-audit.
+ * ------------------------------------------------------------------------ */
+button,
+select,
+input:not([type="checkbox"]):not([type="radio"]),
+a.auth-link,
+a.header-link,
+.btn-primary,
+.btn-secondary,
+.btn-small,
+.action-btn {
+  min-height: var(--control-h-touch);
+}
+
+@media (min-width: 768px) {
+  button,
+  select,
+  input:not([type="checkbox"]):not([type="radio"]),
+  a.auth-link,
+  a.header-link,
+  .btn-primary,
+  .btn-secondary,
+  .btn-small,
+  .action-btn {
+    min-height: var(--control-h);
+  }
+}
+
+/* An inline link inside running prose is not a control and keeps the text
+   rhythm; a link that stands alone as an action gets the target size. */
+a.auth-link,
+a.header-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ---------------------------------------------------------------------------
+ * R-09 — every figure a reader may compare is tabular. Applied to the
+ * elements that carry figures, not globally: proportional figures are correct
+ * inside running prose.
+ * ------------------------------------------------------------------------ */
+.tnum,
+.t-data,
+.t-meta,
+time,
+code,
+kbd,
+samp,
+pre {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------------------
+ * R-15 — motion means "this is live", and stops meaning it if the reader has
+ * asked for less.
+ * ------------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * R-21 — ribbed RUNNING bars, and R-22 — breathing square status lights.
+ *
+ * Both are perception tricks and both are bounded by the governing principle
+ * in DESIGN_RULES.md: a trick may change how a reading FEELS, never what it
+ * SAYS. The ribbing does not touch the bar's value and the breath does not
+ * touch the light's state.
+ * ------------------------------------------------------------------------ */
+
+/* Backward, because backward is the direction that makes progress feel
+   faster (Harrison, Yeo & Hudson, CHI 2010). */
+@keyframes bb-rib-back {
+  from { background-position: 0 0; }
+  to   { background-position: calc(-1 * var(--rib-tile)) 0; }
+}
+
+@keyframes bb-breathe {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: var(--breathe-floor); }
+}
+
+/* .bb-rib is applied to the FILL element of a bar that is running, and to
+   nothing else. A static or finished bar is flat (R-21). --rib-fill and
+   --rib-step are set by the state class that owns the colour. */
+.bb-rib {
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--rib-fill) 0 var(--rib-band),
+    var(--rib-step) var(--rib-band) calc(var(--rib-band) * 2));
+  background-size: var(--rib-tile) 100%;
+  background-repeat: repeat;
+  animation: bb-rib-back var(--rib-period) linear infinite;
+}
+
+/* A status light is a tiny version of the mark: square, radius 0 (R-22). */
+.bb-light {
+  width: var(--light-size);
+  height: var(--light-size);
+  border-radius: 0;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+/* Irradiation: a light area on a dark ground reads larger than a dark one of
+   the same size, so the brightest light in a set is drawn one whole pixel
+   smaller to match it. Whole pixels only — a half pixel on a hairline grid
+   is a blur, not a correction. */
+.bb-light-hi {
+  width: var(--light-size-hi);
+  height: var(--light-size-hi);
+}
+
+/* Running only. Other states are still. */
+.bb-breathe {
+  animation: bb-breathe var(--breathe-period) ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Stopping the animation leaves the stripes standing; R-21 says a bar with
+     no motion is FLAT, so the gradient goes too. */
+  .bb-rib {
+    background-image: none;
+    background-color: var(--rib-fill);
+  }
+}
+
+/* ==========================================================================
+ * BORING BOX THEME FOR FILE BROWSER
+ *
+ * Everything above this banner is static/css/tokens.css, copied verbatim
+ * (R-18: values live only there). Everything below uses only those tokens,
+ * File Browser's theme variables, and ordinary selectors. No literal colour,
+ * size, weight or font appears below this line.
+ *
+ * Requires File Browser with the theme variables (themeable branch) and:
+ *   config set --branding.files <this dir> --branding.theme dark
+ *              --branding.disableCredits --branding.disableExternal
+ *              --viewMode list
+ * ======================================================================== */
+
+/* --------------------------------------------------------------------------
+ * 1. File Browser's variables -> the ink scale. Light and .dark are the same:
+ *    Boring Box is dark only (R-11).
+ * ------------------------------------------------------------------------ */
+:root,
+:root.dark {
+  /* the app-name micro-label in the header (a brand string, not i18n) */
+  --bb-app-name: "File Browser";
+
+  --blue: var(--fg);
+  --dark-blue: var(--fg-mute);
+  --red: var(--signal);
+  --dark-red: var(--signal);
+  --moon-grey: var(--bg-2);
+
+  /* file-type tints are decoration, not state (R-11) */
+  --icon-red: var(--fg-mute);
+  --icon-orange: var(--fg-mute);
+  --icon-yellow: var(--fg-mute);
+  --icon-green: var(--fg-mute);
+  --icon-blue: var(--fg-mute);
+  --icon-violet: var(--fg-mute);
+
+  --input-red: var(--bg);
+  --input-green: var(--bg);
+  --item-selected: var(--fg);
+  --action: var(--fg-mute);
+
+  --background: var(--bg);
+  --surfacePrimary: var(--bg-1);
+  --surfaceSecondary: var(--bg-2);
+  --divider: var(--line);
+  --iconPrimary: var(--fg-mute);
+  --iconSecondary: var(--bg); /* glyph ON the accent */
+  --iconTertiary: var(--fg-dim);
+  --textPrimary: var(--fg-mute);
+  --textSecondary: var(--fg);
+  --hover: var(--bg-2);
+  --borderPrimary: var(--line);
+  --borderSecondary: var(--fg-mute);
+  --dividerPrimary: var(--line);
+  --dividerSecondary: var(--line);
+
+  /* Track-1 theme variables */
+  --font-ui: var(--font-sans);
+  /* --font-mono: already set by the token block above */
+  --accent: var(--fg);
+  --accent-hover: var(--fg-mute);
+  --accent-text: var(--bg);
+
+  --radius-control: var(--radius);
+  --radius-tile: var(--radius);
+  --radius-card: var(--radius);
+  --radius-search: var(--radius);
+  --radius-round: var(--radius);
+
+  --shadow-card: none;
+  --shadow-tile: none;
+  --shadow-tile-hover: none;
+  --shadow-bar: none;
+  --shadow-button: none;
+  --shadow-menu: none;
+
+  --transition-fast: var(--motion);
+  --transition-base: var(--motion);
+
+  --header-height: var(--s-16);
+  --header-padding: 0 var(--s-2) 0 var(--s-4);
+  --listing-item-padding: var(--s-2) var(--s-4);
+
+  color-scheme: dark;
+}
+
+/* --------------------------------------------------------------------------
+ * 2. Base: body role, one focus ring, transitions on the four allowed
+ *    properties only (R-14), no geometry on press.
+ * ------------------------------------------------------------------------ */
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font: var(--w-regular) var(--t-body) / var(--lh-body) var(--font-sans);
+}
+
+h1,
+h2,
+h3,
+h4,
+strong,
+b,
+th {
+  font-weight: var(--w-bold);
+}
+
+*,
+*::before,
+*::after {
+  transition: var(--motion);
+  transition-property: color, background-color, border-color, opacity !important;
+}
+
+:focus-visible {
+  outline: var(--focus-ring) !important;
+  outline-offset: var(--focus-offset);
+}
+
+::selection {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+code,
+pre,
+kbd,
+time {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+li code,
+p code {
+  padding: 0 var(--s-1);
+  background: var(--bg-2);
+}
+
+.material-icons {
+  font-size: var(--s-6);
+}
+
+/* loading squares: opacity only, >= 1.5 s (R-15) */
+@keyframes bb-load {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: var(--disabled-opacity);
+  }
+}
+
+#loading {
+  background: var(--bg) !important;
+}
+
+#loading .spinner > div,
+main .spinner > div,
+#previewer .spinner > div {
+  width: var(--s-2) !important;
+  height: var(--s-2) !important;
+  margin: 0 var(--s-1) 0 0 !important;
+  border-radius: 0 !important;
+  background: var(--fg-mute) !important;
+  transform: none !important;
+  animation: bb-load var(--rib-period) linear infinite both !important;
+}
+
+main .spinner {
+  text-align: left;
+  padding: var(--s-4) 0;
+}
+
+/* top page-load bar: a running bar is ribbed, backward (R-21) */
+.progress {
+  height: var(--rule-heavy);
+}
+
+.progress div,
+.upload-files .file .file-progress div {
+  --rib-fill: var(--info);
+  --rib-step: var(--info-rib);
+  background-color: var(--info);
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--rib-fill) 0 var(--rib-band),
+    var(--rib-step) var(--rib-band) calc(var(--rib-band) * 2)
+  );
+  background-size: var(--rib-tile) 100%;
+  border-radius: 0;
+  animation: bb-rib-back var(--rib-period) linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress div,
+  .upload-files .file .file-progress div {
+    background-image: none;
+  }
+}
+
+/* disk-usage bar (inline-styled component) is static: flat */
+.vue-simple-progress {
+  background: var(--line) !important;
+  border-radius: 0 !important;
+}
+
+.vue-simple-progress-bar {
+  background: var(--fg-mute) !important;
+  border-radius: 0 !important;
+}
+
+/* --------------------------------------------------------------------------
+ * 3. Header: flat --bg, one 2px rule (R-10), app name as a micro-label.
+ * ------------------------------------------------------------------------ */
+header {
+  background: var(--bg);
+  border-bottom: var(--rule-heavy) solid var(--line);
+  gap: var(--s-1);
+}
+
+header > img {
+  display: none;
+}
+
+header::before {
+  content: var(--bb-app-name);
+  order: 0;
+  margin-right: var(--s-4);
+  color: var(--fg);
+  font: var(--w-bold) var(--t-label) / var(--lh-label) var(--font-mono);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+header .menu-button {
+  order: -1;
+}
+
+header title {
+  font: var(--w-bold) var(--t-label) / var(--lh-label) var(--font-sans);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--fg);
+  padding: 0 var(--s-4);
+}
+
+/* icon buttons: a glyph centred in its own <=48px box is the one permitted
+   centring (R-13); 44px target everywhere (R-16) */
+.action {
+  color: var(--fg-mute);
+}
+
+header .action,
+#file-selection .action,
+.breadcrumbs a {
+  min-width: var(--control-h-touch);
+  min-height: var(--control-h-touch);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action i {
+  padding: var(--s-2);
+}
+
+/* keep File Browser's own show/hide of these (the rule above would win) */
+header .search-button,
+header .menu-button {
+  display: none;
+}
+
+/* the stock focus outline on dialog buttons is a translucent blue */
+#modal-background .button:focus {
+  outline: 0;
+}
+
+@media (hover: hover) {
+  .action:hover {
+    background-color: var(--bg-2);
+    color: var(--fg);
+  }
+}
+
+@media (hover: none) {
+  .action:hover {
+    background-color: transparent;
+  }
+}
+
+.action:active {
+  background-color: var(--bg-2);
+}
+
+.action.disabled,
+.action[disabled] {
+  opacity: var(--disabled-opacity);
+  cursor: default;
+}
+
+/* selection counter: a square, not a dot */
+.action .counter {
+  width: var(--s-4);
+  height: var(--s-4);
+  border: 0;
+  background: var(--fg);
+  color: var(--bg);
+  font: var(--w-bold) var(--t-label) / var(--s-4) var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+/* search */
+#search {
+  height: var(--s-12);
+}
+
+#search #input {
+  background: var(--bg);
+  border: var(--rule) solid var(--line);
+  padding: 0 var(--s-3);
+}
+
+@media (hover: hover) {
+  #search #input:hover {
+    border-color: var(--fg-mute);
+  }
+}
+
+#search #input input {
+  color: var(--fg);
+  font: var(--w-regular) var(--t-body) / var(--lh-body) var(--font-sans);
+  outline: 0;
+}
+
+#search #input input::placeholder {
+  color: var(--fg-dim);
+}
+
+#search.active #input {
+  border: 0;
+  border-bottom: var(--rule-heavy) solid var(--line);
+  background: var(--bg);
+}
+
+#search.active #result {
+  padding: var(--s-4);
+}
+
+#search #result > div {
+  max-width: var(--w-column);
+  margin: 0;
+}
+
+#search #result #renew,
+#search.active #result > p > i {
+  text-align: left;
+  margin: 0;
+}
+
+#search li {
+  margin: 0;
+  border-bottom: var(--rule) solid var(--line);
+}
+
+#search.active #result ul li a {
+  min-height: var(--control-h-touch);
+  padding: var(--s-2) 0;
+  color: var(--fg);
+  word-break: break-all;
+}
+
+#search .boxes {
+  margin: var(--s-4) 0;
+  background: transparent;
+  border: 0;
+}
+
+#search .boxes h3 {
+  margin: 0 0 var(--s-2);
+  padding: 0;
+  color: var(--fg-mute);
+  font: var(--w-bold) var(--t-label) / var(--lh-label) var(--font-sans);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+}
+
+/* hairline-gap grid (R-02 carve-out) instead of blue tiles */
+#search .boxes > div {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--rule);
+  margin: 0;
+  background: var(--line);
+  border: var(--rule) solid var(--line);
+}
+
+#search .boxes > div > div {
+  width: auto;
+  margin: 0;
+  padding: var(--s-4);
+  background: var(--bg);
+  color: var(--fg);
+  text-align: left;
+}
+
+@media (hover: hover) {
+  #search .boxes > div > div:hover {
+    background: var(--bg-1);
+  }
+}
+
+#search .boxes p {
+  margin: var(--s-2) 0 0;
+  font: var(--w-bold) var(--t-label) / var(--lh-label) var(--font-sans);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+}
+
+#search .boxes i {
+  color: var(--fg-mute) !important;
+  font-size: var(--s-6);
+}
+
+/* breadcrumbs */
+.breadcrumbs {
+  height: var(--s-12);
+  background: var(--bg);
+  border-bottom: var(--rule) solid var(--line);
+  color: var(--fg-mute);
+}
+
+.breadcrumbs span a {
+  padding: 0 var(--s-1);
+}
+
+/* literal 0.125em radius in base.css (not covered by a theme variable) */
+.breadcrumbs a {
+  border-radius: 0;
+}
+
+.breadcrumbs span:last-child a {
+  color: var(--fg);
+}
+
+@media (hover: hover) {
+  .breadcrumbs a:hover {
+    background-color: var(--bg-2);
+    color: var(--fg);
+  }
+}
+
+.breadcrumbs .chevron i {
+  color: var(--fg-dim);
+}
+
+/* --------------------------------------------------------------------------
+ * 4. Sidebar
+ * ------------------------------------------------------------------------ */
+nav {
+  background: var(--bg);
+}
+
+nav > div {
+  border-top: var(--rule) solid var(--line);
+}
+
+nav .action {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: var(--control-h-touch);
+  padding: 0 var(--s-4);
+  color: var(--fg);
+  font: var(--w-regular) var(--t-body) / var(--lh-body) var(--font-sans);
+  text-align: left;
+}
+
+nav .action i {
+  padding: 0;
+  color: var(--fg-mute);
+}
+
+nav .credits {
+  margin: var(--s-6) var(--s-4) !important;
+  width: auto !important;
+  color: var(--fg-mute);
+  font: var(--w-regular) var(--t-label) / var(--lh-label) var(--font-mono);
+  letter-spacing: var(--tr-cjk);
+  font-variant-numeric: tabular-nums;
+}
+
+nav .credits br {
+  display: none;
+}
+
+nav .credits .vue-simple-progress {
+  margin-bottom: var(--s-2);
+}
+
+nav .credits a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--control-h-touch);
+  font: var(--w-bold) var(--t-label) / var(--lh-label) var(--font-sans);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--fg-mute);
+}
+
+/* --------------------------------------------------------------------------
+ * 5. Listing. List view: rows separated by one 1px --line, name --fg,
+ *    icon --fg-mute, size and date mono, tabular, right-aligned (R-09).
+ * ------------------------------------------------------------------------ */
+#listing h2 {
+  margin: var(--s-6) 0 var(--s-2);
+  color: var(--fg-mute);
+  font: var(--w-bold) var(--t-label) / var(--lh-label) var(--font-sans);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+}
+
+#listing .item {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+#listing .item .name {
+  font-weight: var(--w-regular);
+  color: var(--fg);
+}
+
+#listing .item .size,
+#listing .item .modified {
+  color: var(--fg-mute);
+  font: var(--w-regular) var(--t-body) / var(--lh-body) var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+#listing .item i {
+  color: var(--fg-mute);
+}
+
+@media (hover: hover) {
+  #listing .item:hover {
+    background: var(--bg-1);
+  }
+}
+
+/* selected: 2px left rule in --fg, text --fg 700 (R-14) */
+#listing .item[aria-selected="true"] {
+  background: var(--bg-2) !important;
+  color: var(--fg) !important;
+  box-shadow: none !important;
+  border-left: var(--rule-heavy) solid var(--fg) !important;
+}
+
+#listing .item[aria-selected="true"] .name {
+  font-weight: var(--w-bold);
+}
+
+.file-icons [aria-selected="true"] i {
+  color: var(--fg) !important;
+}
+
+#listing.list .item {
+  border: 0;
+  border-bottom: var(--rule) solid var(--line);
+  border-left: var(--rule-heavy) solid transparent;
+  min-height: var(--s-12);
+}
+
+#listing.list .item div:first-of-type {
+  width: var(--s-8);
+  flex: none;
+}
+
+#listing.list .item div:first-of-type i {
+  font-size: var(--s-6);
+  margin: 0;
+}
+
+#listing.list .item div:first-of-type img {
+  width: var(--s-6);
+  height: var(--s-6);
+  margin: 0;
+}
+
+#listing.list .item div:last-of-type {
+  width: auto;
+  flex: 1 1 auto;
+  gap: var(--s-4);
+  min-width: 0;
+}
+
+#listing.list .item .name {
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
+}
+
+#listing.list .item .size {
+  flex: none;
+  width: var(--s-24);
+  text-align: right;
+}
+
+#listing.list .item .modified {
+  flex: none;
+  width: calc(var(--s-24) + var(--s-12));
+  text-align: right;
+}
+
+/* header row of the list: sort labels */
+#listing.list .item.header {
+  min-height: var(--s-8);
+  padding: var(--s-2) var(--s-4);
+  background: var(--bg);
+  border-bottom: var(--rule) solid var(--line);
+  border-left: var(--rule-heavy) solid transparent;
+}
+
+#listing.list .item.header .name {
+  margin-right: 0;
+}
+
+/* the header row has no icon cell: indent it to the name column */
+#listing.list .item.header > div {
+  padding-left: var(--s-8);
+}
+
+/* right-aligned sort labels: arrow on the left so the text edge aligns
+   with the figures below */
+#listing.list .item.header .size,
+#listing.list .item.header .modified {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+#listing.list .item.header p,
+#listing.list .item.header p span {
+  color: var(--fg-mute);
+  font: var(--w-bold) var(--t-label) / var(--lh-label) var(--font-sans);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+}
+
+#listing.list .item.header .active,
+#listing.list .item.header .active span {
+  color: var(--fg);
+}
+
+#listing.list .header i {
+  font-size: var(--t-body);
+  margin-left: var(--s-1);
+}
+
+/* mosaic (still available from the view switch): flat tiles, 1px rules */
+#listing.mosaic .item {
+  border: var(--rule) solid var(--line);
+}
+
+#listing.mosaic.gallery .item[data-type="image"] div:last-of-type {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+#listing.mosaic.gallery .item div:last-of-type {
+  text-align: left;
+}
+
+/* empty state: --fg-dim, flush left, one sentence, no illustration (R-14) */
+.message {
+  margin: var(--s-6) 0;
+  width: auto;
+  color: var(--fg-dim);
+  text-align: left;
+  font: var(--w-regular) var(--t-body) / var(--lh-prose) var(--font-sans);
+}
+
+.message > i {
+  display: none;
+}
+
+/* multiple-selection bar */
+#listing #multiple-selection {
+  background-color: var(--bg-2);
+  border-top: var(--rule-heavy) solid var(--fg);
+}
+
+#listing #multiple-selection p,
+#listing #multiple-selection i {
+  color: var(--fg);
+}
+
+/* --------------------------------------------------------------------------
+ * 6. Buttons. Rest: --fg on transparent, 1px --line. The one red: a
+ *    destructive action, and the single primary button of a dialog.
+ * ------------------------------------------------------------------------ */
+.button {
+  box-shadow: none !important;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: var(--control-h-touch);
+  padding: 0 var(--s-4);
+  border: var(--rule) solid var(--line);
+  background: transparent;
+  color: var(--fg);
+  font: var(--w-bold) var(--t-label) / var(--lh-label) var(--font-sans);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  text-align: left;
+}
+
+@media (hover: hover) {
+  .button:hover {
+    background-color: var(--bg-1);
+    border-color: var(--fg-mute);
+  }
+}
+
+.button:active {
+  background-color: var(--bg-2);
+}
+
+.button--block {
+  display: flex;
+  width: 100%;
+}
+
+.button--flat {
+  border-color: transparent;
+  background: transparent;
+  color: var(--fg);
+}
+
+.button--flat.button--grey {
+  color: var(--fg-mute);
+}
+
+@media (hover: hover) {
+  .button--flat:hover {
+    background: var(--bg-1);
+    border-color: var(--line);
+    color: var(--fg);
+  }
+}
+
+.button--red,
+.button--flat.button--red,
+.card .card-action .button#focus-prompt:not(.button--block) {
+  background: var(--signal);
+  border-color: var(--signal);
+  color: var(--on-signal);
+}
+
+@media (hover: hover) {
+  .button--red:hover,
+  .button--flat.button--red:hover,
+  .card .card-action .button#focus-prompt:not(.button--block):hover {
+    background: var(--signal);
+    border-color: var(--fg);
+    color: var(--on-signal);
+  }
+}
+
+.button[disabled],
+.button:disabled {
+  opacity: var(--disabled-opacity);
+  cursor: default;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+ * 7. Inputs, selects, checkboxes: flat field, 1px --line, square.
+ * ------------------------------------------------------------------------ */
+.input,
+select,
+.card#share input,
+.card#share select {
+  min-height: var(--control-h-touch);
+  padding: var(--s-2) var(--s-3);
+  background: var(--bg);
+  color: var(--fg);
+  border: var(--rule) solid var(--line);
+  border-radius: 0;
+  font: var(--w-regular) var(--t-body) / var(--lh-body) var(--font-sans);
+}
+
+@media (hover: hover) {
+  .input:hover,
+  select:hover {
+    border-color: var(--fg-mute);
+  }
+}
+
+.input:focus,
+select:focus {
+  border-color: var(--fg);
+}
+
+.input--textarea {
+  font-family: var(--font-mono);
+}
+
+.input--red {
+  border-color: var(--signal) !important;
+}
+
+.input--green {
+  border-color: var(--ok) !important;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  width: var(--s-4);
+  height: var(--s-4);
+  margin: 0 var(--s-2) 0 0;
+  vertical-align: middle;
+  border: var(--rule) solid var(--fg-mute);
+  border-radius: 0;
+  background: var(--bg);
+}
+
+input[type="checkbox"]:checked {
+  background: var(--fg);
+  border-color: var(--fg);
+}
+
+/* --------------------------------------------------------------------------
+ * 8. Cards, dialogs, overlay. A dialog floats: 2px rule, flat --bg-2, no
+ *    shadow; the scrim is the single permitted rgba (R-12).
+ * ------------------------------------------------------------------------ */
+.overlay,
+#modal-background {
+  background-color: var(--scrim) !important;
+}
+
+.card {
+  background: var(--bg-1);
+  color: var(--fg);
+  border: var(--rule) solid var(--line);
+}
+
+.card.floating {
+  background: var(--bg-2);
+  border: var(--rule-heavy) solid var(--fg);
+  max-width: var(--w-form);
+}
+
+.card > div {
+  padding: var(--s-4) var(--s-6);
+}
+
+.card > div:first-child {
+  padding-top: var(--s-6);
+}
+
+.card > div:last-child {
+  padding-bottom: var(--s-6);
+}
+
+.card .card-title {
+  padding: var(--s-6) var(--s-6) var(--s-2);
+}
+
+.card h2,
+.card .card-title h2 {
+  margin: 0;
+  font: var(--w-bold) var(--t-section) / var(--lh-section) var(--font-sans);
+  letter-spacing: var(--tr-snug);
+  text-transform: uppercase;
+}
+
+.card h3 {
+  margin: var(--s-6) 0 var(--s-2);
+  color: var(--fg-mute);
+  font: var(--w-bold) var(--t-label) / var(--lh-label) var(--font-sans);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+}
+
+.card p {
+  margin: 0 0 var(--s-4);
+}
+
+/* buttons flush left (R-13), primary last */
+.card .card-action,
+body.rtl .card .card-action {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  text-align: left;
+}
+
+.card .card-action > div {
+  display: flex;
+  gap: var(--s-2);
+}
+
+/* upload: file / folder choice — two tiles, glyph + label, flush left */
+.card .card-action.full {
+  flex-wrap: nowrap;
+  gap: var(--rule);
+  padding: 0 var(--s-6) var(--s-6);
+}
+
+.card .card-action.full .action {
+  margin: 0;
+  padding: var(--s-4);
+  border: var(--rule) solid var(--line);
+  background: var(--bg);
+  color: var(--fg);
+  text-align: left;
+}
+
+.card .card-action.full .action i {
+  padding: 0;
+  margin: 0 0 var(--s-4);
+  font-size: var(--s-6);
+  color: var(--fg-mute);
+}
+
+.card .card-action.full .action .title {
+  font: var(--w-bold) var(--t-label) / var(--lh-label) var(--font-sans);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+}
+
+@media (hover: hover) {
+  .card .card-action.full .action:hover {
+    background: var(--bg-1);
+    border-color: var(--fg-mute);
+  }
+}
+
+/* move / copy folder picker */
+.file-list li {
+  min-height: var(--control-h-touch);
+  padding: var(--s-2) var(--s-3);
+  border-left: var(--rule-heavy) solid transparent;
+  border-bottom: var(--rule) solid var(--line);
+}
+
+.file-list li:before {
+  color: var(--fg-mute);
+  font-size: var(--s-6);
+  margin-right: var(--s-2);
+}
+
+.file-list li[aria-selected="true"] {
+  background: var(--bg) !important;
+  color: var(--fg) !important;
+  border-left-color: var(--fg);
+  font-weight: var(--w-bold);
+}
+
+.file-list li[aria-selected="true"]:before {
+  color: var(--fg);
+}
+
+/* share links */
+.card#share ul li {
+  border-bottom: var(--rule) solid var(--line);
+}
+
+.card#share .action.copy-clipboard::after {
+  background: var(--fg);
+  color: var(--bg);
+  border-radius: 0;
+  font: var(--w-bold) var(--t-label) / var(--lh-label) var(--font-sans);
+}
+
+.share__box {
+  border: var(--rule) solid var(--line);
+}
+
+/* upload progress panel (bottom-right) */
+.upload-files .card .card-title {
+  justify-content: flex-start;
+  font: var(--w-bold) var(--t-label) / var(--lh-label) var(--font-sans);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+}
+
+.upload-files .file .file-progress {
+  height: var(--s-1);
+  background: var(--line);
+}
+
+/* context menu: floats */
+.context-menu {
+  background: var(--bg-2);
+  border: var(--rule-heavy) solid var(--fg);
+}
+
+.context-menu .action {
+  min-height: var(--control-h-touch);
+  gap: var(--s-2);
+  padding: 0 var(--s-3);
+  color: var(--fg);
+}
+
+.context-menu .action i {
+  padding: 0;
+}
+
+/* toasts: float, flat; an error carries the signal rule (R-14) */
+.Vue-Toastification__toast {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: var(--bg-2) !important;
+  border: var(--rule-heavy) solid var(--fg);
+  color: var(--fg) !important;
+  font: var(--w-regular) var(--t-body) / var(--lh-body) var(--font-sans) !important;
+  min-height: var(--s-12) !important;
+  padding: var(--s-3) var(--s-4) !important;
+}
+
+.Vue-Toastification__toast--error {
+  border-color: var(--signal);
+  color: var(--signal) !important;
+}
+
+.Vue-Toastification__toast--success {
+  border-color: var(--ok);
+}
+
+.Vue-Toastification__close-button,
+.Vue-Toastification__progress-bar {
+  color: var(--fg-mute) !important;
+  background: var(--fg-mute);
+}
+
+/* --------------------------------------------------------------------------
+ * 9. Settings (the "dashboard")
+ * ------------------------------------------------------------------------ */
+.dashboard #nav .wrapper {
+  border-bottom: var(--rule) solid var(--line);
+}
+
+.dashboard #nav ul {
+  color: var(--fg-mute);
+  font: var(--w-bold) var(--t-label) / var(--lh-label) var(--font-sans);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  text-align: left;
+  margin: 0 0 calc(-1 * var(--rule)) 0;
+}
+
+.dashboard #nav ul li {
+  padding: var(--s-4) var(--s-4);
+  border-bottom: var(--rule-heavy) solid transparent;
+}
+
+.dashboard #nav ul li.active {
+  border-color: var(--fg);
+  color: var(--fg);
+}
+
+.dashboard #nav ul li.active::before {
+  display: none;
+}
+
+.dashboard p label {
+  margin-bottom: var(--s-1);
+  color: var(--fg-mute);
+  font: var(--w-bold) var(--t-label) / var(--lh-label) var(--font-sans);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+}
+
+.small {
+  color: var(--fg-mute);
+  font-size: var(--t-body);
+  line-height: var(--lh-prose);
+}
+
+table tr {
+  border-bottom: var(--rule) solid var(--line);
+}
+
+table th {
+  color: var(--fg-mute);
+  font: var(--w-bold) var(--t-label) / var(--lh-label) var(--font-sans);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  text-align: left;
+}
+
+table th,
+table td {
+  padding: var(--s-2) var(--s-4);
+}
+
+.collapsible,
+.collapsible:last-of-type {
+  border-color: var(--line);
+}
+
+.collapsible > label * {
+  color: var(--fg);
+}
+
+/* the 'project archived' notice is a warning: a --warn rule (R-11) */
+.dashboard .card:has(> .card-title + .card-content a[href*="#security"]) {
+  border-left: var(--rule-heavy) solid var(--warn);
+}
+
+/* --------------------------------------------------------------------------
+ * 10. Previewer / editor
+ * ------------------------------------------------------------------------ */
+#previewer {
+  background-color: var(--bg);
+}
+
+#previewer header {
+  background: var(--bg);
+  border-bottom: var(--rule-heavy) solid var(--line);
+}
+
+#previewer header > .action i,
+#previewer header > title,
+#previewer header #dropdown .action i {
+  color: var(--fg);
+  text-shadow: none;
+}
+
+#previewer > button {
+  background-color: var(--bg-2);
+  color: var(--fg);
+}
+
+#previewer .preview .info {
+  color: var(--fg-mute);
+  font: var(--w-regular) var(--t-body) / var(--lh-body) var(--font-sans);
+}
+
+#previewer .preview .info .title i {
+  font-size: var(--s-12);
+}
+
+#editor-container .bar {
+  background: var(--bg-1);
+}
+
+/* external links (GitHub) — hidden; branding.disableExternal removes most,
+   this catches the docs links that stay. The archive notice's security /
+   hardening link is deliberately kept: it is safety information. */
+a[href*="github.com/filebrowser"]:not([href*="#security"]) {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+ * 11. Phone (< 737px — File Browser's own JS breakpoint is 736px, so the
+ *     theme matches it rather than R-16's 768px). The header moves to the
+ *     bottom: every action, including upload, is in thumb reach.
+ * ------------------------------------------------------------------------ */
+@media (max-width: 736px) {
+  body {
+    padding-top: 0;
+    padding-bottom: calc(var(--header-height) + var(--s-4));
+  }
+
+  header {
+    top: auto;
+    bottom: 0;
+    border-bottom: 0;
+    border-top: var(--rule-heavy) solid var(--line);
+    padding-bottom: env(safe-area-inset-bottom);
+    height: calc(var(--header-height) + env(safe-area-inset-bottom));
+  }
+
+  header::before {
+    display: none;
+  }
+
+  header .search-button,
+  header .menu-button {
+    display: inline-flex;
+  }
+
+  .breadcrumbs {
+    top: 0;
+  }
+
+  #dropdown {
+    top: auto;
+    bottom: calc(var(--header-height) + var(--s-2));
+    right: var(--s-2);
+    transform-origin: bottom right;
+    background: var(--bg-2);
+    border: var(--rule-heavy) solid var(--fg);
+  }
+
+  #dropdown .action {
+    min-height: var(--control-h-touch);
+    min-width: calc(var(--s-24) + var(--s-24));
+    justify-content: flex-start;
+    gap: var(--s-2);
+    padding: 0 var(--s-3);
+    color: var(--fg);
+  }
+
+  #dropdown .action i {
+    padding: 0;
+  }
+
+  #dropdown .action span:not(.counter) {
+    padding: 0;
+    font: var(--w-regular) var(--t-body) / var(--lh-body) var(--font-sans);
+  }
+
+  /* the mobile selection bar sits on top of the bottom header */
+  #file-selection {
+    bottom: calc(var(--header-height) + var(--s-2));
+    left: var(--s-4);
+    right: var(--s-4);
+    width: auto;
+    max-width: none;
+    transform: none;
+    background: var(--bg-2);
+    border: var(--rule-heavy) solid var(--fg);
+  }
+
+  #file-selection:empty {
+    display: none;
+  }
+
+  #file-selection > span {
+    margin-left: var(--s-3);
+    color: var(--fg);
+    font: var(--w-regular) var(--t-label) / var(--lh-label) var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  nav {
+    background: var(--bg-1);
+    border-right: var(--rule-heavy) solid var(--fg);
+  }
+
+  main {
+    margin: 0 var(--s-4);
+    width: calc(100% - 2 * var(--s-4));
+  }
+
+  #listing {
+    margin-bottom: var(--s-12);
+  }
+
+  /* rows become stacked records: name on one line, size and date below */
+  #listing.list .item:not(.header) {
+    min-height: var(--control-h-touch);
+  }
+
+  #listing.list .item:not(.header) div:last-of-type {
+    flex-wrap: wrap;
+    column-gap: var(--s-4);
+    row-gap: 0;
+  }
+
+  #listing.list .item:not(.header) .name {
+    flex: 1 0 100%;
+    width: 100%;
+  }
+
+  #listing.list .item:not(.header) .size,
+  #listing.list .item:not(.header) .modified {
+    display: block;
+    width: auto;
+    text-align: left;
+    font: var(--w-regular) var(--t-label) / var(--lh-label) var(--font-mono);
+    letter-spacing: var(--tr-cjk);
+  }
+
+  #listing.list .item.header .size,
+  #listing.list .item.header .modified {
+    width: auto;
+    text-align: left;
+  }
+
+  #listing.list .item.header {
+    padding: var(--s-2) var(--s-4);
+  }
+
+  #listing.list .item.header .name {
+    width: auto;
+    flex: 1 1 auto;
+  }
+
+  /* sort labels are controls: 44px targets */
+  #listing.list .item.header p {
+    display: flex;
+    align-items: center;
+    min-height: var(--control-h-touch);
+  }
+
+  /* a link standing alone in a paragraph is an action, not prose */
+  .card p > a:only-child {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--control-h-touch);
+  }
+
+  #listing #multiple-selection {
+    bottom: calc(-1 * var(--header-height));
+  }
+
+  #listing #multiple-selection.active {
+    bottom: var(--header-height);
+  }
+
+  .upload-files .card.floating {
+    bottom: var(--header-height);
+  }
+
+  .card.floating {
+    width: calc(100% - 2 * var(--s-4));
+  }
+
+  .dashboard .row {
+    margin: 0;
+  }
+
+  .dashboard .row .column {
+    padding: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * 12. Links inside prose must read as links: an underline, never a colour
+ *     (R-11 forbids coloured text for emphasis).
+ * ------------------------------------------------------------------------ */
+.link,
+.card p a,
+.card .small a {
+  text-decoration: underline;
+  text-decoration-thickness: var(--rule);
+  text-underline-offset: var(--s-1);
+}
