@@ -96,7 +96,7 @@
     </div>
 
     <p class="credits">
-      <span>
+      <span v-if="!disableCredits">
         <span v-if="disableExternal">File Browser</span>
         <a
           v-else
@@ -128,6 +128,7 @@ import {
   hideLoginButton,
   disableExternal,
   disableUsedPercentage,
+  disableCredits,
   noAuth,
   logoutPage,
   loginPage,
@@ -160,6 +161,7 @@ export default {
     version: () => version,
     disableExternal: () => disableExternal,
     disableUsedPercentage: () => disableUsedPercentage,
+    disableCredits: () => disableCredits,
     canLogout: () => !noAuth && (loginPage || logoutPage !== "/login"),
   },
   methods: {

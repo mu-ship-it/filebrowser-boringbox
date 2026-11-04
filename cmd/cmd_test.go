@@ -59,3 +59,25 @@ func TestGetSettingsFollowExternalSymlinks(t *testing.T) {
 		t.Error("expected FollowExternalSymlinks to be persisted as true")
 	}
 }
+
+// TestGetSettingsDisableCredits ensures that the branding.disableCredits
+// flag is persisted to the settings when set via "config set".
+func TestGetSettingsDisableCredits(t *testing.T) {
+	flags := pflag.NewFlagSet("test", pflag.ContinueOnError)
+	addConfigFlags(flags)
+
+	if err := flags.Parse([]string{"--branding.disableCredits"}); err != nil {
+		t.Fatal(err)
+	}
+
+	set := &settings.Settings{AuthMethod: auth.MethodJSONAuth}
+	ser := &settings.Server{}
+
+	if _, err := getSettings(flags, set, ser, &auth.JSONAuth{}, false); err != nil {
+		t.Fatal(err)
+	}
+
+	if !set.Branding.DisableCredits {
+		t.Error("expected Branding.DisableCredits to be persisted as true")
+	}
+}

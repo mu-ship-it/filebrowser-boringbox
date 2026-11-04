@@ -94,6 +94,15 @@
           </p>
 
           <p>
+            <input
+              type="checkbox"
+              v-model="settings.branding.disableCredits"
+              id="branding-credits"
+            />
+            {{ t("settings.disableCredits") }}
+          </p>
+
+          <p>
             <label for="theme">{{ t("settings.themes.title") }}</label>
             <themes
               class="input input--block"

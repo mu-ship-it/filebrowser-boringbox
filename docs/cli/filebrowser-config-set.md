@@ -22,6 +22,7 @@ filebrowser config set [flags]
       --auth.method string               authentication type (default "json")
   -b, --baseURL string                   base url
       --branding.color string            set the theme color
+      --branding.disableCredits          hide the File Browser name and version in the sidebar
       --branding.disableExternal         disable external links such as GitHub links
       --branding.disableUsedPercentage   disable used disk percentage graph
       --branding.files string            path to directory with images and custom styles

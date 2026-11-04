@@ -57,6 +57,7 @@ func addConfigFlags(flags *pflag.FlagSet) {
 	flags.String("branding.files", "", "path to directory with images and custom styles")
 	flags.Bool("branding.disableExternal", false, "disable external links such as GitHub links")
 	flags.Bool("branding.disableUsedPercentage", false, "disable used disk percentage graph")
+	flags.Bool("branding.disableCredits", false, "hide the File Browser name and version in the sidebar")
 
 	flags.Uint64("tus.chunkSize", settings.DefaultTusChunkSize, "the tus chunk size")
 	flags.Uint16("tus.retryCount", settings.DefaultTusRetryCount, "the tus retry count")
@@ -212,6 +213,7 @@ func printSettings(ser *settings.Server, set *settings.Settings, auther auth.Aut
 	fmt.Fprintf(w, "\tFiles override:\t%s\n", set.Branding.Files)
 	fmt.Fprintf(w, "\tDisable external links:\t%t\n", set.Branding.DisableExternal)
 	fmt.Fprintf(w, "\tDisable used disk percentage graph:\t%t\n", set.Branding.DisableUsedPercentage)
+	fmt.Fprintf(w, "\tDisable credits:\t%t\n", set.Branding.DisableCredits)
 	fmt.Fprintf(w, "\tColor:\t%s\n", set.Branding.Color)
 	fmt.Fprintf(w, "\tTheme:\t%s\n", set.Branding.Theme)
 
@@ -352,6 +354,8 @@ func getSettings(flags *pflag.FlagSet, set *settings.Settings, ser *settings.Ser
 			set.Branding.DisableExternal, err = flags.GetBool(flag.Name)
 		case "branding.disableUsedPercentage":
 			set.Branding.DisableUsedPercentage, err = flags.GetBool(flag.Name)
+		case "branding.disableCredits":
+			set.Branding.DisableCredits, err = flags.GetBool(flag.Name)
 		case "tus.chunkSize":
 			set.Tus.ChunkSize, err = flags.GetUint64(flag.Name)
 		case "tus.retryCount":

@@ -222,6 +222,7 @@
     "defaultUserDescription": "These are the default settings for new users.",
     "disableExternalLinks": "Disable external links (except documentation)",
     "disableUsedDiskPercentage": "Disable used disk percentage graph",
+    "disableCredits": "Hide File Browser name and version in the sidebar",
     "documentation": "documentation",
     "examples": "Examples",
     "executeOnShell": "Execute on shell",

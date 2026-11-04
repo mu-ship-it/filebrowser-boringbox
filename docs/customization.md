@@ -9,6 +9,7 @@ You can customize File Browser to use your own branding. This includes the follo
 - **Name**: the name of the instance that shows up on the tab title, login pages, and some other places.
 - **Disable External Links**: disables all external links, except to the documentation.
 - **Disable Used Percentage**: disables the disk usage information on the sidebar.
+- **Disable Credits**: hides the File Browser name and version at the bottom of the sidebar.
 - **Branding Folder**: directory which can contain two items:
   - `custom.css`, containing a global stylesheet to apply to all users.
   - `img`, a directory which can replace all the [default logotypes](https://github.com/filebrowser/filebrowser/tree/master/frontend/public/img) from the application.
